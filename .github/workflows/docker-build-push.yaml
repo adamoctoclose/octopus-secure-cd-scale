@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:  # Allows manual triggering
 
+permissions:
+  packages: write  # Allow writing to GitHub Packages (ghcr.io)
+  contents: read   # Allow reading the repository contents
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +29,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GH_TOKEN_TOKEN }}
 
     # Step 4: Get the current date in YYYY.MM.DD format and append the GitHub run number
     - name: Get Date and Build Run Number for version tag
