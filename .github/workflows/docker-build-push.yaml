@@ -41,7 +41,7 @@ jobs:
     # Step 5: Build the Docker image using the lowercase repository name
     - name: Build the Docker image
       run: |
-        docker build -t ghcr.io/${{ steps.version.outputs.repo_lower }}/demo-frontend:${{ steps.version.outputs.tag }} .
+        docker build -t ghcr.io/${{ steps.version.outputs.repo_lower }}/demo-frontend:${{ steps.version.outputs.tag }} -f demo-frontend/Dockerfile .
 
     # Step 6: Push the Docker image to GitHub Container Registry
     - name: Push the Docker image
