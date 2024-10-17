@@ -1,3 +1,5 @@
+# Terraform-specific ignores
+
 # Local .terraform directories
 **/.terraform/*
 
@@ -32,3 +34,98 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+
+# .NET Core (v8.0) specific ignores
+
+# Build directories
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Configuration files
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+
+# Visual Studio Code files
+.vscode/
+
+# Rider IDE files
+.idea/
+
+# JetBrains Rider Unity plugin
+.idea/AssetIndex
+.idea/Dictionary
+
+# Azure Functions local settings file
+local.settings.json
+
+# Log and crash files
+*.log
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+.nuget/
+**/packages/*
+
+# Dotnet user-specific
+.vs/
+.history/
+
+# Dependency directories
+**/node_modules/
+**/bower_components/
+
+# Azure Pipelines
+!azure-pipelines.yml
+
+# StyleCop diagnostic files
+stylecop.json
+
+# Publish output
+.publish/
+artifacts/
+
+# Coverage tool results
+*.coverage
+*.coveragexml
+.coverage/
+.coverlet/
+
+# Webpack/Babel build artifacts
+dist/
+node_modules/
+yarn-error.log
+.pnp.*
+
+# Debug & Release directories
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# Resharper/JetBrains Rider
+_ReSharper*/
+*.DotSettings.user
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Mono auto generated files
+mono_crash.*
+
+# VS Code directory
+.vscode/
+
+# IDE-specific caches and settings
+.idea/
