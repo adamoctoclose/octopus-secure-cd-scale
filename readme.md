@@ -1,4 +1,4 @@
-# Octopus Demo Template - .NET
+# Octopus Zero to Hero
 
 Welcome to Octopus Zero to Hero! This project is designed to help you follow along during our "Zero to Hero" Octopus Deploy webinar. By following this guide, you'll be able to deploy a sample .NET application to a Kubernetes cluster using Octopus Deploy.
 
