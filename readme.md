@@ -17,7 +17,7 @@ Before getting started, please make sure you have the following:
 
 ## Getting Started
 
-### 1. Fork this Repositry 
+### Fork this Repositry 
 
 Start by forking this repository to your GitHub account. Then, clone your forked repository to your local machine:
 
@@ -25,11 +25,32 @@ Start by forking this repository to your GitHub account. Then, clone your forked
 cd octopus-demo-template-net`
 
 
-### 2. Configure Kubernetes Cluster
+### Configure Kubernetes Cluster
 
 Ensure that your Kubernetes cluster is up and running. If you are using Docker Desktop:
 
 - Make sure Docker Desktop is running.
 - Go to Settings > Kubernetes and enable Kubernetes.
 
+### Create GitHub Personal Access Token
 
+ This token must have read:packages and repo scopes to enable pulling packages from the GitHub registry of your forked repository. You can create a token by following these steps:
+
+  1. Go to your GitHub account settings.
+  
+  2. Navigate to Developer settings > Personal access tokens >   Generate new token.
+  
+  3. Select read:packages and repo scopes.
+
+  4. Generate the token and keep it safe, as you'll need it during the deployment process.
+
+
+**Following Along During the Webinar**
+
+This repository and the example deployment are intended to be used as part of our "Zero to Hero" webinar. We will cover:
+
+Setting up Octopus Deploy from scratch.
+
+Configuring a Kubernetes target.
+
+Deploying the provided .NET application.
