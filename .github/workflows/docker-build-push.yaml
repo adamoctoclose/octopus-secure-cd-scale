@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:
 
 permissions:
-  packages: write  # Allow writing to GitHub Packages (ghcr.io)
-  contents: read   # Allow reading the repository contents
+  packages: write
+  contents: read
 
 jobs:
   build:
@@ -19,11 +19,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Set up Docker Buildx (for building multi-platform images if needed)
+    # Step 2: Set up Docker Buildx
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    # Step 3: Log in to the GitHub container registry
+    # Step 3: Log in to GitHub Container Registry
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v2
       with:
@@ -31,17 +31,19 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    # Step 4: Get the current date in YYYY.MM.DD format and append the GitHub run number
+    # Step 4: Get Date, Build Run Number, and Force Lowercase Repository Name
     - name: Get Date and Build Run Number for version tag
       id: version
-      run: echo "::set-output name=tag::$(date +'%Y.%m.%d').${{ github.run_number }}"
+      run: |
+        echo "::set-output name=tag::$(date +'%Y.%m.%d').${{ github.run_number }}"
+        echo "::set-output name=repo_lower::$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
 
-    # Step 5: Build and tag the Docker image
+    # Step 5: Build the Docker image using the lowercase repository name
     - name: Build the Docker image
       run: |
-        docker build -t ghcr.io/${{ github.repository }}/demo-frontend:${{ steps.version.outputs.tag }} -f demo-frontend/Dockerfile .
-    
+        docker build -t ghcr.io/${{ steps.version.outputs.repo_lower }}/demo-frontend:${{ steps.version.outputs.tag }} .
+
     # Step 6: Push the Docker image to GitHub Container Registry
     - name: Push the Docker image
       run: |
-        docker push ghcr.io/${{ github.repository }}/demo-frontend:${{ steps.version.outputs.tag }}
+        docker push ghcr.io/${{ steps.version.outputs.repo_lower }}/demo-frontend:${{ steps.version.outputs.tag }}
