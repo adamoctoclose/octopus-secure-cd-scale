@@ -1,8 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Page-specific content -->
+<h1 class="display-4">@ViewData["WelcomeMessage"]</h1>
+
+<p class="lead">
+    Welcome to the <strong>Octopus Deploy Zero to Hero</strong> webinar! In this journey, you'll learn how to deploy and
+    manage your applications seamlessly with <a href="https://octopus.com/" class="text-primary">Octopus Deploy</a>.
+</p>
+
+<a href="https://octopus.com/docs" class="btn btn-primary btn-lg">Explore the Documentation</a>
+
+<div class="features">
+    <h2>What you'll learn:</h2>
+    <ul class="list-unstyled">
+        <li><strong>Automated Deployments:</strong> Learn how to automate the deployment process from start to finish.
+        </li>
+        <li><strong>Infrastructure as Code:</strong> Discover how Octopus integrates with your infrastructure
+            management.</li>
+        <li><strong>Zero Downtime Deployments:</strong> Techniques for ensuring smooth, uninterrupted deployments.</li>
+        <li><strong>Multi-environment Support:</strong> Manage deployments across Dev, QA, and Production environments
+            with ease.</li>
+    </ul>
 </div>

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-frontend-deployment
+  labels:
+    app: demo-frontend
+spec:
+  replicas: 2 # Number of pod replicas
+  selector:
+    matchLabels:
+      app: demo-frontend
+  template:
+    metadata:
+      labels:
+        app: demo-frontend
+    spec:
+      containers:
+      - name: demo-frontend
+        image: ghcr.io/<your-username>/demo-frontend:latest # Replace with your container image
+        ports:
+        - containerPort: 6000 # Port exposed by the container (matches the Dockerfile)
+        env:
+        - name: WELCOME_MESSAGE
+          value: "Welcome to the Octopus Zero to Hero Webinar!" # Example environment variable
+        - name: FOOTER_TEXT
+          value: "Powered by Kubernetes and Octopus Deploy"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-frontend-service
+  labels:
+    app: demo-frontend
+spec:
+  type: LoadBalancer # Use LoadBalancer to expose it publicly
+  ports:
+  - port: 6000
+    targetPort: 6000
+    protocol: TCP
+  selector:
+    app: demo-frontend
