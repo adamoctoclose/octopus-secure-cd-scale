@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demo-frontend
-        image: ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:2024.10.21.17 # Replace with your container image
+        image: ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:2024.10.21.19 # Replace with your container image
         ports:
         - containerPort: 80 # Port exposed by the container (matches the Dockerfile)
         env:
@@ -49,6 +49,6 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
-    nodePort: 30080 # Port accessible from outside the cluster
+    nodePort: 3000
   selector:
     app: demo-frontend
