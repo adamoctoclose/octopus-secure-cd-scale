@@ -24,18 +24,6 @@ spec:
           value: "Welcome to the Octopus Zero to Hero Webinar!" # Example environment variable
         - name: FOOTER_TEXT
           value: "Powered by Kubernetes and Octopus Deploy"
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 20
 
 ---
 apiVersion: v1
