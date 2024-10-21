@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demo-frontend
-        image: ghcr.io/<your-username>/demo-frontend:latest # Replace with your container image
+        image: ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:latest # Replace with your container image
         ports:
         - containerPort: 6000 # Port exposed by the container (matches the Dockerfile)
         env:
@@ -45,7 +45,7 @@ metadata:
   labels:
     app: demo-frontend
 spec:
-  type: LoadBalancer # Use LoadBalancer to expose it publicly
+  type: NodePort # Use NodePort for local access
   ports:
   - port: 6000
     targetPort: 6000
