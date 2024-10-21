@@ -49,6 +49,5 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
-    nodePort: 3000
   selector:
     app: demo-frontend
