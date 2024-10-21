@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demo-frontend
-        image: ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:2024.10.21.16 # Replace with your container image
+        image: ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:2024.10.21.17 # Replace with your container image
         ports:
         - containerPort: 80 # Port exposed by the container (matches the Dockerfile)
         env:
@@ -27,13 +27,13 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8080
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8080
           initialDelaySeconds: 15
           periodSeconds: 20
 
@@ -48,7 +48,7 @@ spec:
   type: NodePort # Use NodePort for local access
   ports:
   - port: 80
-    targetPort: 80
-    protocol: TCP
+    targetPort: 8080
+    nodePort: 30080 # Port accessible from outside the cluster
   selector:
     app: demo-frontend

@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Expose the port specified in appsettings.json (6000)
-EXPOSE 80
+EXPOSE 8080
 
 # Start the app
 ENTRYPOINT ["dotnet", "demo-frontend.dll"]
