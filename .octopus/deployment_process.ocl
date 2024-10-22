@@ -11,7 +11,7 @@ step "deploy-kubernetes-yaml" {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.Kubernetes.DeploymentTimeout = "180"
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
-            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "False"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend.yaml"
             Octopus.Action.KubernetesContainers.Namespace = "zerotohero"
