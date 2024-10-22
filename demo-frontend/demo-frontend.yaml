@@ -18,7 +18,7 @@ spec:
       - name: demo-frontend
         image: ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:2024.10.21.19 # Replace with your container image
         ports:
-        - containerPort: 80 # Port exposed by the container (matches the Dockerfile)
+        - containerPort: 5002 # Port exposed by the container (matches the Dockerfile)
         env:
         - name: WELCOME_MESSAGE
           value: "Welcome to the Octopus Zero to Hero Webinar!" # Example environment variable
@@ -36,6 +36,6 @@ spec:
   type: NodePort # Use NodePort for local access
   ports:
   - port: 80
-    targetPort: 8080
+    targetPort: 5002 # Port exposed by the container (matches the Dockerfile)
   selector:
     app: demo-frontend
