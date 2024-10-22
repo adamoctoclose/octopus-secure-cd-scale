@@ -35,12 +35,14 @@ $nodePort10943 = Get-OctopusDeployNodePort -servicePort 10943
 # Check if both NodePorts were retrieved successfully
 if ($nodePort80 -and $nodePort10943) {
     # Construct the URLs
-    $localURL = "http://localhost:$nodePort80"          # URL for local access (port 80)
-    $internalURL = "http://localhost:$nodePort10943"     # URL for container-to-container access (port 10943)
+    $localURL = "http://localhost:$nodePort80"                                           # URL for access from your local machine (port 80)
+    $internalRegistrationURL = "http://octopus-deploy.octopus-deploy.svc.cluster.local:80" # FQDN for registration (port 80)
+    $internalCommunicationURL = "http://octopus-deploy.octopus-deploy.svc.cluster.local:10943" # FQDN for communication (port 10943)
 
     # Output the URLs
     Write-Host "You can access Octopus Deploy locally at: $localURL"
-    Write-Host "Containers inside the cluster can access Octopus Deploy at: $internalURL"
+    Write-Host "Containers inside the cluster can register with Octopus Deploy at: $internalRegistrationURL"
+    Write-Host "Containers inside the cluster can communicate with Octopus Deploy at: $internalCommunicationURL"
 }
 else {
     Write-Host "Error: Unable to retrieve necessary service details (NodePorts)" -ForegroundColor Red
