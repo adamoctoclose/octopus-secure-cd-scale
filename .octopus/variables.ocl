@@ -1,3 +1,7 @@
-variable "spec.template.spec.containers.image" {
+variable "spec.template.spec.containers[0].env[0].value" {
+    value "HellAdam" {}
+}
+
+variable "spec.template.spec.containers[0].image" {
     value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:2024.10.22.24" {}
 }
