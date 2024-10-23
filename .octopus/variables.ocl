@@ -3,5 +3,5 @@ variable "spec:template:spec:containers[0]:env[0]:value" {
 }
 
 variable "spec:template:spec:containers:0:image" {
-    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:024.10.22.34" {}
+    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:24.10.22.34" {}
 }
