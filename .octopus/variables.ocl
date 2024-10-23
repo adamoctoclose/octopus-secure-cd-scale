@@ -6,10 +6,10 @@ variable "spec:template:spec:containers:0:env:0:value" {
     value "HellAdam" {}
 }
 
-variable "project.frontend.version" {
-    value "#{Octopus.Action[Deploy Kubernetes YAML].Package.PackageVersion}" {}
-}
-
 variable "spec:template:spec:containers:0:image" {
     value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:project.#{project.frontend.version}" {}
+}
+
+variable "project.frontend.version" {
+    value "#{Octopus.Action.Package[Deploy Kubernetes YAM].PackageVersion}" {}
 }
