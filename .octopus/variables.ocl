@@ -11,5 +11,5 @@ variable "project.frontend.version" {
 }
 
 variable "spec:template:spec:containers:0:image" {
-    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:project.#{frontend.version}" {}
+    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:project.#{project.frontend.version}" {}
 }
