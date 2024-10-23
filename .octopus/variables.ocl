@@ -11,5 +11,5 @@ variable "spec:template:spec:containers:0:image" {
 }
 
 variable "project.frontend.version" {
-    value "#{Octopus.Action.Package[Deploy Kubernetes YAM].PackageVersion}" {}
+    value "#{Octopus.Action.Package[Deploy Kubernetes YAML].PackageVersion}" {}
 }
