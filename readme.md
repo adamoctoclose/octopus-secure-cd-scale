@@ -1,6 +1,16 @@
 # Octopus Zero to Hero
 
+<img width="1186" alt="zero-to-hero" src="https://github.com/user-attachments/assets/33f50757-9145-4642-bc14-d7461da0b682">
+
 Welcome to Octopus Zero to Hero! This project is designed to help you follow along during our "Zero to Hero" Octopus Deploy webinar. By following this guide, you'll be able to deploy a sample .NET application to a Kubernetes cluster using Octopus Deploy.
+
+## Octopus Deploy core concepts
+
+
+We highly recommend reading [Octopus docs](https://octopus.com/docs) to help you understand the core concepts. The [Octopus introduction](https://octopus.com/docs) and [getting started guide](https://octopus.com/docs/getting-started) combined with technology-specific docs ([Kubernetes](), [IIS](), [Tomcat](), etc) are great resources to help you go grow your Octopus experience from zero to hero.
+
+
+We highly recommend reading  to help you understand the core oncepts and grow your Octopus experience from zero to hero. Specifically the [core introduction](https://octopus.com/docs) and [getting started guide](https://octopus.com/docs/getting-started). 
 
 ## Prerequisites
 
@@ -17,13 +27,14 @@ Before getting started, please make sure you have the following:
 
 ## Getting Started
 
-### Fork this Repositry 
+### Fork this Repository 
 
 Start by forking this repository to your GitHub account. Then, clone your forked repository to your local machine:
 
-`git clone https://github.com/yourusername/octopus-demo-template-net.git
-cd octopus-demo-template-net`
-
+```
+git clone https://github.com/yourusername/octopus-demo-template-net.git
+cd octopus-demo-template-net
+```
 
 ### Configure Kubernetes Cluster
 
@@ -43,7 +54,6 @@ Ensure that your Kubernetes cluster is up and running. If you are using Docker D
   3. Select read:packages and repo scopes.
 
   4. Generate the token and keep it safe, as you'll need it during the deployment process.
-
 
 **Following Along During the Webinar**
 
