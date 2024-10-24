@@ -25,7 +25,7 @@ Before getting started, please make sure you have the following:
 
 ### Fork this Repository 
 
-Start by forking this repository to your GitHub account. Then, clone your forked repository to your local machine:
+Start by forking this repository to your GitHub account and giving it a name (i.e. `octopus-demo-template-net`). Then, clone your forked repository to your local machine:
 
 ```
 git clone https://github.com/yourusername/octopus-demo-template-net.git
