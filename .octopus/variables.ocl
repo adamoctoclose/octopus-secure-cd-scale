@@ -1,0 +1,15 @@
+variable "spec:template:spec:containers:0:env:1:value" {
+    value "#{octopus.Environment.Name}" {}
+}
+
+variable "spec:template:spec:containers:0:env:0:value" {
+    value "Hello Adam" {}
+}
+
+variable "spec:template:spec:containers:0:image" {
+    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:project.#{project.frontend.version}" {}
+}
+
+variable "project.frontend.version" {
+    value "#{Octopus.Action.Package[octopus-zero-to-hero_demo-frontend].PackageVersion}" {}
+}
