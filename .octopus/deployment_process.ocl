@@ -1,3 +1,22 @@
+step "create-namespace" {
+    name = "Create Namespace"
+    properties = {
+        Octopus.Action.TargetRoles = "k8s-demo"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptFileName = "create-namespace.ps1"
+            Octopus.Action.Script.ScriptParameters = "-namespace #{project.enviornment}"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+        worker_pool_variable = ""
+    }
+}
+
 step "deploy-kubernetes-yaml" {
     name = "Deploy Kubernetes YAML"
     properties = {
