@@ -11,5 +11,5 @@ variable "project.frontend.version" {
 }
 
 variable "spec:template:spec:containers:0:image" {
-    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:#{Octopus.Action.Package[Deploy Kubernetes YAML].PackageVersion}" {}
+    value "ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:#{Octopus.Action.Package[octopus-zero-to-hero_demo-frontend].PackageVersion}" {}
 }
