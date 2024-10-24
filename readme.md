@@ -6,11 +6,7 @@ Welcome to Octopus Zero to Hero! This project is designed to help you follow alo
 
 ## Octopus Deploy core concepts
 
-
-We highly recommend reading [Octopus docs](https://octopus.com/docs) to help you understand the core concepts. The [Octopus introduction](https://octopus.com/docs) and [getting started guide](https://octopus.com/docs/getting-started) combined with technology-specific docs ([Kubernetes](), [IIS](), [Tomcat](), etc) are great resources to help you go grow your Octopus experience from zero to hero.
-
-
-We highly recommend reading  to help you understand the core oncepts and grow your Octopus experience from zero to hero. Specifically the [core introduction](https://octopus.com/docs) and [getting started guide](https://octopus.com/docs/getting-started). 
+We highly recommend reviewing the [Octopus docs](https://octopus.com/docs) to help you understand the core concepts. The [Octopus introduction](https://octopus.com/docs) and [getting started guide](https://octopus.com/docs/getting-started) combined with technology-specific docs ([Kubernetes](https://octopus.com/docs/kubernetes), [IIS](https://octopus.com/docs/deployments/windows/iis-websites-and-application-pools), [Tomcat](https://octopus.com/docs/deployments/java), etc) are great resources to help you go grow your Octopus experience from zero to hero.
 
 ## Prerequisites
 
