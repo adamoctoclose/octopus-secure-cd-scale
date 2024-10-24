@@ -43,4 +43,4 @@ spec:template:spec:containers:0:env:1:value | #{octopus.Environment.Name}
 ---------------------------------
 
 
-
+#{Octopus.Environment.Name | ToLower}
