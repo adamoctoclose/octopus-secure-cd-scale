@@ -13,3 +13,7 @@ variable "spec:template:spec:containers:0:image" {
 variable "project.frontend.version" {
     value "#{Octopus.Action.Package[octopus-zero-to-hero_demo-frontend].PackageVersion}" {}
 }
+
+variable "project.enviornment" {
+    value "#{Octopus.Environment.Name | ToLower} " {}
+}
