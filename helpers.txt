@@ -1,18 +1,46 @@
+----------------------------------------------------------
+Useful Commands 
+----------------------------------------------------------
+* kubectl get pods --namespace development    
+* kubectl describe service demo-frontend-service --namespace development
+* kubectl describe pod POD_NAME_HERE  --namespace development
+
+
 ---------------------------------
-Octopus Variables
+1. Install Octopus Deploy 
+---------------------------------
+
+.\install-octopus-deploy-helm.ps1
+
+---------------------------------
+2. Install Octopus Agnt 
+---------------------------------
+
+URLs: .\get-octopus-urls.ps1
+
+---------------------------------
+3. Create GitHub Container Feed
+---------------------------------
+
+Feed URL: https://ghcr.io
+Feed Username: GitHub Username
+Feed Token: GitHub Token (Permissions to read packages)
+
+---------------------------------
+4. Create Octopus Variables
 ---------------------------------
 
 project.frontend.version | #{Octopus.Action.Package[octopus-zero-to-hero_demo-frontend].PackageVersion}
 
-spec:template:spec:containers:0:image | ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:project.#{project.frontend.version}
+spec:template:spec:containers:0:image | ghcr.io/octopussolutionsengineering/octopus-zero-to-hero/demo-frontend:#{project.frontend.version}
 
 spec:template:spec:containers:0:env:0:value | Hello Adam
 
 spec:template:spec:containers:0:env:1:value | #{octopus.Environment.Name}
 
 ---------------------------------
-External Feed
+5. Create Deploymnt Process 
 ---------------------------------
 
-https://ghcr.io
+
 
