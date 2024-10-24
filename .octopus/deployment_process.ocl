@@ -34,7 +34,7 @@ step "deploy-kubernetes-yaml" {
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend.yaml"
-            Octopus.Action.KubernetesContainers.Namespace = "wibblewobble"
+            Octopus.Action.KubernetesContainers.Namespace = "#{Octopus.Environment.Name}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
