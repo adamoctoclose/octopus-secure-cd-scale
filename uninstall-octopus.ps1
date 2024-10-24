@@ -22,15 +22,23 @@ function Remove-HelmReleaseAndNamespace {
     kubectl delete namespace $namespace
 }
 
-# Step 1: Remove the entire "zerotohero" namespace and all resources
-Write-Host "Cleaning up zerotohero namespace..."
-Remove-Namespace -namespace "zerotohero"
+# Step 1: Remove the "development" namespace and all resources
+Write-Host "Cleaning up development namespace..."
+Remove-Namespace -namespace "development"
 
-# Step 2: Remove the "octopus-deploy" namespace and Helm release
+# Step 2: Remove the "test" namespace and all resources
+Write-Host "Cleaning up test namespace..."
+Remove-Namespace -namespace "test"
+
+# Step 3: Remove the "production" namespace and all resources
+Write-Host "Cleaning up production namespace..."
+Remove-Namespace -namespace "production"
+
+# Step 4: Remove the "octopus-deploy" namespace and Helm release
 Write-Host "Cleaning up octopus-deploy Helm release and namespace..."
 Remove-HelmReleaseAndNamespace -releaseName "octopus-deploy" -namespace "octopus-deploy"
 
-# Step 3: Remove the "octopus-agent-octopus-local-agent" namespace and Helm release
+# Step 5: Remove the "octopus-agent-octopus-local-agent" namespace and Helm release
 Write-Host "Cleaning up octopus-local-agent Helm release and namespace..."
 Remove-HelmReleaseAndNamespace -releaseName "octopus-local-agent" -namespace "octopus-agent-octopus-local-agent"
 
