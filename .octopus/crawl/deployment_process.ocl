@@ -1,20 +1,34 @@
-step "hello-world-using-powershell" {
-    name = "Hello world (using PowerShell)"
+step "deploy-kubernetes-yaml" {
+    name = "Deploy Kubernetes YAML"
+    properties = {
+        Octopus.Action.TargetRoles = "demo-frontend"
+    }
 
     action {
-        action_type = "Octopus.Script"
-        is_required = true
+        action_type = "Octopus.KubernetesDeployRawYaml"
         properties = {
-            Octopus.Action.RunOnServer = "true"
-            Octopus.Action.Script.ScriptBody = <<-EOT
-                Write-Host 'Hello world, using PowerShell'
-                
-                #TODO: Experiment with steps of your own :)
-                
-                Write-Host '[Learn more about the types of steps available in Octopus](https://oc.to/OnboardingAddStepsLearnMore)'
-                EOT
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
+            Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend.yaml"
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend.yaml"
+            Octopus.Action.KubernetesContainers.Namespace = "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}"
+            Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+        worker_pool_variable = ""
+
+        packages "octopus-secure-cd-scale_demo-frontend" {
+            acquisition_location = "NotAcquired"
+            feed = "github-container-registry"
+            package_id = "adamoctoclose/octopus-secure-cd-scale/demo-frontend"
+            properties = {
+                Extract = "False"
+                Purpose = "DockerImageReference"
+                SelectionMode = "immediate"
+            }
         }
     }
 }
