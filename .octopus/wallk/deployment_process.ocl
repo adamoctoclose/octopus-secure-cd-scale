@@ -25,6 +25,7 @@ step "deploy-kubernetes-secret" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend-secret.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -50,6 +51,7 @@ step "deploy-kubernetes-yaml" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -86,6 +88,7 @@ step "print-application-url" {
 
     action {
         action_type = "Octopus.Script"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
@@ -128,6 +131,24 @@ step "hashicorp-vault-approle-unwrap-secret-id-and-login" {
             Vault.AppRole.UnwrapSecretID.Login.VaultAddress = "#{hashicorp.vault.url}"
             Vault.AppRole.UnwrapSecretID.Login.WrappedToken = "#{project.hashicorp.WrappedToken}"
             Vault.AppRole.UnwrapSecretID.Login.WrappedTokenCreationPath = "#{project.hashicorp.WrappedTokenCreationPath}"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
+
+step "run-a-script" {
+    name = "Run a Script"
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $hello = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
+                
+                write-highlight $hello
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
         }
         worker_pool = "hosted-ubuntu"
     }
