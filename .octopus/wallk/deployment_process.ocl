@@ -135,3 +135,23 @@ step "hashicorp-vault-approle-unwrap-secret-id-and-login" {
         worker_pool = "hosted-ubuntu"
     }
 }
+
+step "hashicorp-vault-key-value-v2-retrieve-secrets" {
+    name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
+
+    action {
+        properties = {
+            Octopus.Action.Template.Id = "ActionTemplates-43"
+            Octopus.Action.Template.Version = "9"
+            Vault.Retrieve.KV.V2.Secrets.ApiVersion = "v1"
+            Vault.Retrieve.KV.V2.Secrets.AuthToken = "#{project.hashicorp.roleid.AppRoleAuthToken}"
+            Vault.Retrieve.KV.V2.Secrets.Namespace = "#{hashicorp.vault.namespace}"
+            Vault.Retrieve.KV.V2.Secrets.PrintVariableNames = "False"
+            Vault.Retrieve.KV.V2.Secrets.RecursiveSearch = "False"
+            Vault.Retrieve.KV.V2.Secrets.RetrievalMethod = "List"
+            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "webapp/config"
+            Vault.Retrieve.KV.V2.Secrets.VaultAddress = "#{hashicorp.vault.url}"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
