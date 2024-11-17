@@ -162,7 +162,6 @@ step "hashicorp-vault-key-value-v2-retrieve-secrets" {
     name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
 
     action {
-        is_disabled = true
         properties = {
             Octopus.Action.Template.Id = "ActionTemplates-43"
             Octopus.Action.Template.Version = "9"
