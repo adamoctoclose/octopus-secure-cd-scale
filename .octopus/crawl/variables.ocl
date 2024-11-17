@@ -14,6 +14,6 @@ variable "project.namespace" {
     value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
 }
 
-variable "data:MY_SECRET" {
+variable "data:password" {
     value "#{project.secret}" {}
 }

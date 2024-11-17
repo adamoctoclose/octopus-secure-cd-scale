@@ -10,6 +10,22 @@ variable "spec:template:spec:containers:0:image" {
     value "ghcr.io/adamoctoclose/octopus-secure-cd-scale/demo-frontend:#{project.frontend.version}" {}
 }
 
-variable "project.namesapce" {
+variable "project.hashicorp.WrappedToken" {
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedToken}" {}
+}
+
+variable "project.hashicorp.WrappedTokenCreationPath" {
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedTokenCreationPath}" {}
+}
+
+variable "project.namespace" {
     value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
+}
+
+variable "project.hashicorp.AppRoleAuthToken" {
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
+}
+
+variable "data:password" {
+    value "#{Octopus.Action[HashiCorp Vault - Key Value (v2) retrieve secrets].Output.secret.webapp.config.password}" {}
 }
