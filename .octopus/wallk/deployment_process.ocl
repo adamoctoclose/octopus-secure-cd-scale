@@ -1,3 +1,22 @@
+step "hashicorp-vault-approle-get-wrapped-secret-id" {
+    name = "HashiCorp Vault - AppRole Get Wrapped Secret ID"
+
+    action {
+        properties = {
+            Octopus.Action.Template.Id = "ActionTemplates-23"
+            Octopus.Action.Template.Version = "5"
+            Vault.AppRole.WrappedSecretID.ApiVersion = "v1"
+            Vault.AppRole.WrappedSecretID.AppRolePath = "/auth/approle"
+            Vault.AppRole.WrappedSecretID.AuthToken = "#{hashicorp.vault.approle.token}"
+            Vault.AppRole.WrappedSecretID.Namespace = "#{hashicorp.vault.namespace}"
+            Vault.AppRole.WrappedSecretID.RoleName = "app-read-write"
+            Vault.AppRole.WrappedSecretID.TTL = "120s"
+            Vault.AppRole.WrappedSecretID.VaultAddress = "#{hashicorp.vault.url}"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
+
 step "deploy-kubernetes-secret" {
     name = "Deploy Kubernetes Secret"
     properties = {
@@ -6,6 +25,7 @@ step "deploy-kubernetes-secret" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend-secret.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -16,6 +36,7 @@ step "deploy-kubernetes-secret" {
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend-secret.yaml"
             Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
         worker_pool_variable = ""
@@ -66,6 +87,7 @@ step "print-application-url" {
 
     action {
         action_type = "Octopus.Script"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
