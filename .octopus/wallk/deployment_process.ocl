@@ -145,10 +145,12 @@ step "run-a-script" {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 $token = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
                 
-                write-highlight $token
+                export VAULT_TOKEN=$token
+                
+                vault read secret/data/webapp/config
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
+            Octopus.Action.Script.Syntax = "Bash"
         }
         worker_pool = "hosted-ubuntu"
     }
