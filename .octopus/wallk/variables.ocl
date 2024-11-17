@@ -13,3 +13,11 @@ variable "spec:template:spec:containers:0:image" {
 variable "project.namesapce" {
     value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
 }
+
+variable "project.hashicorp.WrappedToken" {
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedToken}" {}
+}
+
+variable "project.hashicorp.WrappedTokenCreationPath" {
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedTokenCreationPath}" {}
+}
