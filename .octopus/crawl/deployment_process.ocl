@@ -46,8 +46,10 @@ step "configure-and-apply-a-kubernetes-secret" {
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
             Octopus.Action.KubernetesContainers.SecretName = "my-secret"
             Octopus.Action.KubernetesContainers.SecretValues = "{\"MY_SECRET\":\"#{project.secret}\"}"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
     }
