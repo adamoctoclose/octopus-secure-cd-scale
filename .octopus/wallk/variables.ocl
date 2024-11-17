@@ -26,6 +26,6 @@ variable "project.hashicorp.AppRoleAuthToken" {
     value "#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
 }
 
-variable "data:MY_SECRET" {
+variable "data:password" {
     value "#{Octopus.Action[HashiCorp Vault - Key Value (v2) retrieve secrets].Output.secret.webapp.config.password}" {}
 }
