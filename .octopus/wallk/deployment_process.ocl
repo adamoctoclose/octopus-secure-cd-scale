@@ -144,7 +144,7 @@ step "hashicorp-vault-key-value-v2-retrieve-secrets" {
             Octopus.Action.Template.Id = "ActionTemplates-43"
             Octopus.Action.Template.Version = "9"
             Vault.Retrieve.KV.V2.Secrets.ApiVersion = "v1"
-            Vault.Retrieve.KV.V2.Secrets.AuthToken = "#{project.hashicorp.roleid.AppRoleAuthToken}"
+            Vault.Retrieve.KV.V2.Secrets.AuthToken = "#{project.hashicorp.AppRoleAuthToken}"
             Vault.Retrieve.KV.V2.Secrets.Namespace = "#{hashicorp.vault.namespace}"
             Vault.Retrieve.KV.V2.Secrets.PrintVariableNames = "False"
             Vault.Retrieve.KV.V2.Secrets.RecursiveSearch = "False"
