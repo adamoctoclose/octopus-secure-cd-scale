@@ -25,7 +25,6 @@ step "deploy-kubernetes-secret" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
-        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend-secret.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -51,7 +50,6 @@ step "deploy-kubernetes-yaml" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
-        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -88,7 +86,6 @@ step "print-application-url" {
 
     action {
         action_type = "Octopus.Script"
-        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
@@ -96,24 +93,6 @@ step "print-application-url" {
             Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namesapce}"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
-    }
-}
-
-step "hashicorp-vault-approle-unwrap-secret-id" {
-    name = "HashiCorp Vault - AppRole Unwrap Secret ID"
-
-    action {
-        is_disabled = true
-        properties = {
-            Octopus.Action.Template.Id = "ActionTemplates-41"
-            Octopus.Action.Template.Version = "4"
-            Vault.AppRole.UnwrapSecretID.ApiVersion = "v1"
-            Vault.AppRole.UnwrapSecretID.Namespace = "#{hashicorp.vault.namespace}"
-            Vault.AppRole.UnwrapSecretID.VaultAddress = "#{hashicorp.vault.url}"
-            Vault.AppRole.UnwrapSecretID.WrappedToken = "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedToken}"
-            Vault.AppRole.UnwrapSecretID.WrappedTokenCreationPath = "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedTokenCreationPath}"
-        }
-        worker_pool = "hosted-ubuntu"
     }
 }
 
