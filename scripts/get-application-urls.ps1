@@ -18,6 +18,7 @@ $nodePort = kubectl get service $serviceName -n $namespace -o jsonpath='{.spec.p
 if ($nodePort) {
     $url = "http://localhost:$nodePort"
     Write-Host "Your application URL is: $url"
+    Write-Highlight "Your application URL is: $url"
 }
 else {
     Write-Host "Failed to retrieve NodePort."
