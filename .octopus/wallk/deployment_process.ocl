@@ -143,13 +143,24 @@ step "run-a-script" {
         action_type = "Octopus.Script"
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
-                $token = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
-                $VAULT_ADDR = "https://hashi-octo-cluster-public-vault-d45f7adc.3d255d07.z1.hashicorp.cloud:8200"
-                $VAULT_NAMESPACE = "admin"
                 
-                vault login -address=$VAULT_ADDR -namespace=$VAULT_NAMESPACE -token=$token
+                # Variables
+                $vaultAddress = "https://hashi-octo-cluster-public-vault-d45f7adc.3d255d07.z1.hashicorp.cloud:8200" # Replace with your Vault URL
+                $vaultNamespace = "admin"         # Replace with your Vault namespace
+                $vaultToken = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]               # Replace with your Vault token
                 
-                vault token lookup
+                # Vault login using the token
+                $loginCommand = "vault login -address=""$vaultAddress"" -namespace=""$vaultNamespace"" -token=""$vaultToken"""
+                
+                # Execute the command and capture the output
+                try {
+                    $response = Invoke-Expression $loginCommand
+                    Write-Output "Vault login successful."
+                    Write-Output $response
+                    vault token lookup
+                } catch {
+                    Write-Error "Vault login failed. Details: $_"
+                }
                 
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
