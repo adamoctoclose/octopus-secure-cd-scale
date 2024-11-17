@@ -136,51 +136,6 @@ step "hashicorp-vault-approle-unwrap-secret-id-and-login" {
     }
 }
 
-step "run-a-script" {
-    name = "Run a Script"
-
-    action {
-        action_type = "Octopus.Script"
-        properties = {
-            Octopus.Action.Script.ScriptBody = <<-EOT
-                
-                # Variables
-                $vaultAddress = "https://hashi-octo-cluster-public-vault-d45f7adc.3d255d07.z1.hashicorp.cloud:8200" # Replace with your Vault URL
-                $vaultNamespace = "admin"         # Replace with your Vault namespace
-                $vaultToken = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]               # Replace with your Vault token
-                
-                # Vault login using the token
-                $loginCommand = "vault login -address=""$vaultAddress"" -namespace=""$vaultNamespace"" -token=""$vaultToken"""
-                
-                try {
-                    # Execute the Vault login command
-                    $response = Invoke-Expression $loginCommand
-                    Write-Output "Vault login successful."
-                    Write-Output $response
-                
-                    # Perform a token lookup
-                    $lookupCommand = "vault token lookup -address=""$vaultAddress"" -namespace=""$vaultNamespace"""
-                    $lookupResponse = Invoke-Expression $lookupCommand
-                    Write-Output "Token lookup successful. Token details:"
-                    Write-Output $lookupResponse
-                } catch {
-                    # Handle any errors during login or token lookup
-                    Write-Error "An error occurred. Details: $_"
-                }
-                EOT
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
-            OctopusUseBundledTooling = "False"
-        }
-        worker_pool = "hosted-ubuntu"
-
-        container {
-            feed = "docker-hub-containers"
-            image = "octopuslabs/vault-workertools:latest"
-        }
-    }
-}
-
 step "hashicorp-vault-key-value-v2-retrieve-secrets" {
     name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
 
