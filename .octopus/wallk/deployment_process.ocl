@@ -146,6 +146,9 @@ step "run-a-script" {
                 $hello = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
                 
                 write-highlight $hello
+                
+                $hello > "$($PWD)/foo.txt"
+                New-OctopusArtifact "$($PWD)/foo.txt"
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
