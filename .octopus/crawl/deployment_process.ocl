@@ -1,3 +1,24 @@
+step "configure-and-apply-a-kubernetes-secret" {
+    name = "Configure and apply a Kubernetes Secret"
+    properties = {
+        Octopus.Action.TargetRoles = "demo-frontend"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeploySecret"
+        properties = {
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
+            Octopus.Action.KubernetesContainers.SecretName = "my-secret"
+            Octopus.Action.KubernetesContainers.SecretValues = "{\"MY_SECRET\":\"#{project.secret}\"}"
+            Octopus.Action.RunOnServer = "false"
+        }
+        worker_pool_variable = ""
+    }
+}
+
 step "deploy-kubernetes-yaml" {
     name = "Deploy Kubernetes YAML"
     properties = {
@@ -31,26 +52,5 @@ step "deploy-kubernetes-yaml" {
                 SelectionMode = "immediate"
             }
         }
-    }
-}
-
-step "configure-and-apply-a-kubernetes-secret" {
-    name = "Configure and apply a Kubernetes Secret"
-    properties = {
-        Octopus.Action.TargetRoles = "demo-frontend"
-    }
-
-    action {
-        action_type = "Octopus.KubernetesDeploySecret"
-        properties = {
-            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
-            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
-            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
-            Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
-            Octopus.Action.KubernetesContainers.SecretName = "my-secret"
-            Octopus.Action.KubernetesContainers.SecretValues = "{\"MY_SECRET\":\"#{project.secret}\"}"
-            Octopus.Action.RunOnServer = "false"
-        }
-        worker_pool_variable = ""
     }
 }
