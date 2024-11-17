@@ -22,10 +22,6 @@ variable "project.namespace" {
     value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
 }
 
-variable "tokentesting" {
-    value "#{project.hashicorp.AppRoleAuthToken}" {}
-}
-
 variable "project.hashicorp.AppRoleAuthToken" {
     value "#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
 }
