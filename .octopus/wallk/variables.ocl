@@ -25,3 +25,7 @@ variable "project.namespace" {
 variable "project.hashicorp.AppRoleAuthToken" {
     value "#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
 }
+
+variable "tokentesting" {
+    value "#{project.hashicorp.AppRoleAuthToken}" {}
+}
