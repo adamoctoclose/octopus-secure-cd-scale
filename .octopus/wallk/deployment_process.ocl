@@ -159,7 +159,7 @@ step "run-a-script" {
                     Write-Output $response
                 
                     # Perform a token lookup
-                    $lookupCommand = "vault token lookup -address=""$vaultAddress"" -namespace=""$vaultNamespace"" -token=""$vaultToken"""
+                    $lookupCommand = "vault token lookup -address=""$vaultAddress"" -namespace=""$vaultNamespace"""
                     $lookupResponse = Invoke-Expression $lookupCommand
                     Write-Output "Token lookup successful. Token details:"
                     Write-Output $lookupResponse
