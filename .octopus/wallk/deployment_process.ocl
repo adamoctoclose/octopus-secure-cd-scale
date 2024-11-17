@@ -145,9 +145,7 @@ step "run-a-script" {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 $token = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
                 
-                export VAULT_TOKEN=$token
-                
-                vault read secret/data/webapp/config
+                write-highlight $token
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
