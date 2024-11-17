@@ -98,3 +98,20 @@ step "print-application-url" {
         }
     }
 }
+
+step "hashicorp-vault-approle-unwrap-secret-id" {
+    name = "HashiCorp Vault - AppRole Unwrap Secret ID"
+
+    action {
+        properties = {
+            Octopus.Action.Template.Id = "ActionTemplates-41"
+            Octopus.Action.Template.Version = "4"
+            Vault.AppRole.UnwrapSecretID.ApiVersion = "v1"
+            Vault.AppRole.UnwrapSecretID.Namespace = "#{hashicorp.vault.namespace}"
+            Vault.AppRole.UnwrapSecretID.VaultAddress = "#{hashicorp.vault.url}"
+            Vault.AppRole.UnwrapSecretID.WrappedToken = "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedToken}"
+            Vault.AppRole.UnwrapSecretID.WrappedTokenCreationPath = "#{Octopus.Action[HashiCorp Vault - AppRole Get Wrapped Secret ID].Output.WrappedTokenCreationPath}"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
