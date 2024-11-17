@@ -136,6 +136,24 @@ step "hashicorp-vault-approle-unwrap-secret-id-and-login" {
     }
 }
 
+step "run-a-script" {
+    name = "Run a Script"
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $token = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
+                
+                write-highlight $token
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
+
 step "hashicorp-vault-key-value-v2-retrieve-secrets" {
     name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
 
