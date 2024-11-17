@@ -152,16 +152,21 @@ step "run-a-script" {
                 # Vault login using the token
                 $loginCommand = "vault login -address=""$vaultAddress"" -namespace=""$vaultNamespace"" -token=""$vaultToken"""
                 
-                # Execute the command and capture the output
                 try {
+                    # Execute the Vault login command
                     $response = Invoke-Expression $loginCommand
                     Write-Output "Vault login successful."
                     Write-Output $response
-                    vault token lookup
-                } catch {
-                    Write-Error "Vault login failed. Details: $_"
-                }
                 
+                    # Perform a token lookup
+                    $lookupCommand = "vault token lookup -address=""$vaultAddress"" -namespace=""$vaultNamespace"" -token=""$vaultToken"""
+                    $lookupResponse = Invoke-Expression $lookupCommand
+                    Write-Output "Token lookup successful. Token details:"
+                    Write-Output $lookupResponse
+                } catch {
+                    # Handle any errors during login or token lookup
+                    Write-Error "An error occurred. Details: $_"
+                }
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
