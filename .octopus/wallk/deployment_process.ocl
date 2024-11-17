@@ -1,5 +1,29 @@
+step "deploy-kubernetes-secret" {
+    name = "Deploy Kubernetes Secret"
+    properties = {
+        Octopus.Action.TargetRoles = "demo-frontend"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployRawYaml"
+        properties = {
+            Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend-secret.yaml"
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend-secret.yaml"
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
+            Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+        worker_pool_variable = ""
+    }
+}
+
 step "deploy-kubernetes-yaml" {
-    name = "Deploy Kubernetes YAML"
+    name = "Deploy Kubernetes Application"
     properties = {
         Octopus.Action.TargetRoles = "demo-frontend"
     }
@@ -16,6 +40,7 @@ step "deploy-kubernetes-yaml" {
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend.yaml"
             Octopus.Action.KubernetesContainers.Namespace = "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
         worker_pool_variable = ""
@@ -29,6 +54,24 @@ step "deploy-kubernetes-yaml" {
                 Purpose = "DockerImageReference"
                 SelectionMode = "immediate"
             }
+        }
+    }
+}
+
+step "print-application-url" {
+    name = "Print Application URL"
+    properties = {
+        Octopus.Action.TargetRoles = "demo-frontend"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptFileName = "scripts/get-application-urls.ps1"
+            Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namesapce}"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
         }
     }
 }

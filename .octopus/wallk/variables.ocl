@@ -9,3 +9,7 @@ variable "project.frontend.version" {
 variable "spec:template:spec:containers:0:image" {
     value "ghcr.io/adamoctoclose/octopus-secure-cd-scale/demo-frontend:#{project.frontend.version}" {}
 }
+
+variable "project.namesapce" {
+    value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
+}
