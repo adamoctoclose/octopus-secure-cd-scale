@@ -72,7 +72,7 @@ step "deploy-kubernetes-secret" {
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend-secret.yaml"
-            Octopus.Action.KubernetesContainers.Namespace = "#{hashicorp.vault.namespace}"
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namespace}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
