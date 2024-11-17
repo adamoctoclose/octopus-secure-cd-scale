@@ -25,7 +25,6 @@ step "deploy-kubernetes-secret" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
-        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend-secret.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -34,7 +33,7 @@ step "deploy-kubernetes-secret" {
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend-secret.yaml"
-            Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
+            Octopus.Action.KubernetesContainers.Namespace = "#{hashicorp.vault.namespace}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
@@ -51,7 +50,6 @@ step "deploy-kubernetes-yaml" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
-        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend.yaml"
             Octopus.Action.GitRepository.Source = "Project"
@@ -88,7 +86,6 @@ step "print-application-url" {
 
     action {
         action_type = "Octopus.Script"
-        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
@@ -140,6 +137,7 @@ step "hashicorp-vault-key-value-v2-retrieve-secrets" {
     name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
 
     action {
+        is_disabled = true
         properties = {
             Octopus.Action.Template.Id = "ActionTemplates-43"
             Octopus.Action.Template.Version = "9"
