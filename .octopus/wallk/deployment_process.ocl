@@ -129,7 +129,7 @@ step "print-application-url" {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptFileName = "scripts/get-application-urls.ps1"
-            Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namesapce}"
+            Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namespace}"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
     }
