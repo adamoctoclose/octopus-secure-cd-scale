@@ -144,9 +144,11 @@ step "run-a-script" {
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 $token = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
-                set VAULT_ADDR="https://hashi-octo-cluster-public-vault-d45f7adc.3d255d07.z1.hashicorp.cloud:8200"
-                set VAULT_NAMESPACE="admin"
-                vault login $token
+                $VAULT_ADDR = "https://hashi-octo-cluster-public-vault-d45f7adc.3d255d07.z1.hashicorp.cloud:8200"
+                $VAULT_NAMESPACE = "admin"
+                
+                vault login -address=$VAULT_ADDR -namespace=$VAULT_NAMESPACE -token=$token
+                
                 vault token lookup
                 
                 EOT
