@@ -157,7 +157,7 @@ step "run-a-script" {
         worker_pool = "hosted-ubuntu"
 
         container {
-            feed = "github-container-registry"
+            feed = "docker-hub-containers"
             image = "octopusdeploy/worker-tools:6.3.0-ubuntu.22.04"
         }
     }
