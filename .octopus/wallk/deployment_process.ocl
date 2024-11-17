@@ -9,7 +9,7 @@ step "hashicorp-vault-approle-get-wrapped-secret-id" {
             Vault.AppRole.WrappedSecretID.AppRolePath = "/auth/approle"
             Vault.AppRole.WrappedSecretID.AuthToken = "#{hashicorp.vault.approle.token}"
             Vault.AppRole.WrappedSecretID.Namespace = "#{hashicorp.vault.namespace}"
-            Vault.AppRole.WrappedSecretID.RoleName = "app-read-write"
+            Vault.AppRole.WrappedSecretID.RoleName = "octopus-application-role"
             Vault.AppRole.WrappedSecretID.TTL = "120s"
             Vault.AppRole.WrappedSecretID.VaultAddress = "#{hashicorp.vault.url}"
         }
