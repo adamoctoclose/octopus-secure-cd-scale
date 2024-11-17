@@ -158,7 +158,7 @@ step "run-a-script" {
 
         container {
             feed = "docker-hub-containers"
-            image = "octopusdeploy/worker-tools:6.3.0-ubuntu.22.04"
+            image = "octopuslabs/vault-workertools:latest"
         }
     }
 }
