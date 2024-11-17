@@ -149,7 +149,7 @@ step "hashicorp-vault-key-value-v2-retrieve-secrets" {
             Vault.Retrieve.KV.V2.Secrets.PrintVariableNames = "False"
             Vault.Retrieve.KV.V2.Secrets.RecursiveSearch = "False"
             Vault.Retrieve.KV.V2.Secrets.RetrievalMethod = "List"
-            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "secret/data/webapp/config"
+            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "secret/data/webapp/config/password"
             Vault.Retrieve.KV.V2.Secrets.VaultAddress = "#{hashicorp.vault.url}"
         }
         worker_pool = "hosted-ubuntu"
