@@ -144,13 +144,22 @@ step "run-a-script" {
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 $token = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
+                set VAULT_ADDR="https://hashi-octo-cluster-public-vault-d45f7adc.3d255d07.z1.hashicorp.cloud:8200"
+                set VAULT_NAMESPACE="admin"
+                vault login $token
+                vault token lookup
                 
-                write-highlight $token
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
+            OctopusUseBundledTooling = "False"
         }
         worker_pool = "hosted-ubuntu"
+
+        container {
+            feed = "github-container-registry"
+            image = "octopusdeploy/worker-tools:6.3.0-ubuntu.22.04"
+        }
     }
 }
 
