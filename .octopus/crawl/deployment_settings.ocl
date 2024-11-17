@@ -4,7 +4,7 @@ connectivity_policy {
 
 versioning_strategy {
     donor_package {
-        package = "octopus-secure-cd-scale-demo-frontend"
-        step = "deploy-kubernetes-yaml"
+        package = "octopus-secure-cd-scale_demo-frontend"
+        step = "Deploy Kubernetes Application"
     }
 }
