@@ -17,6 +17,45 @@ step "hashicorp-vault-approle-get-wrapped-secret-id" {
     }
 }
 
+step "hashicorp-vault-approle-unwrap-secret-id-and-login" {
+    name = "HashiCorp Vault - AppRole Unwrap Secret ID and Login"
+
+    action {
+        properties = {
+            Octopus.Action.Template.Id = "ActionTemplates-24"
+            Octopus.Action.Template.Version = "5"
+            Vault.AppRole.UnwrapSecretID.Login.ApiVersion = "v1"
+            Vault.AppRole.UnwrapSecretID.Login.AppRolePath = "/auth/approle"
+            Vault.AppRole.UnwrapSecretID.Login.Namespace = "#{hashicorp.vault.namespace}"
+            Vault.AppRole.UnwrapSecretID.Login.RoleID = "#{project.hashicorp.roleid}"
+            Vault.AppRole.UnwrapSecretID.Login.VaultAddress = "#{hashicorp.vault.url}"
+            Vault.AppRole.UnwrapSecretID.Login.WrappedToken = "#{project.hashicorp.WrappedToken}"
+            Vault.AppRole.UnwrapSecretID.Login.WrappedTokenCreationPath = "#{project.hashicorp.WrappedTokenCreationPath}"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
+
+step "hashicorp-vault-key-value-v2-retrieve-secrets" {
+    name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
+
+    action {
+        properties = {
+            Octopus.Action.Template.Id = "ActionTemplates-43"
+            Octopus.Action.Template.Version = "9"
+            Vault.Retrieve.KV.V2.Secrets.ApiVersion = "v1"
+            Vault.Retrieve.KV.V2.Secrets.AuthToken = "#{project.hashicorp.AppRoleAuthToken}"
+            Vault.Retrieve.KV.V2.Secrets.Namespace = "#{hashicorp.vault.namespace}"
+            Vault.Retrieve.KV.V2.Secrets.PrintVariableNames = "True"
+            Vault.Retrieve.KV.V2.Secrets.RecursiveSearch = "False"
+            Vault.Retrieve.KV.V2.Secrets.RetrievalMethod = "Get"
+            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "secret/webapp/config"
+            Vault.Retrieve.KV.V2.Secrets.VaultAddress = "#{hashicorp.vault.url}"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
+
 step "deploy-kubernetes-secret" {
     name = "Deploy Kubernetes Secret"
     properties = {
@@ -96,25 +135,6 @@ step "print-application-url" {
     }
 }
 
-step "hashicorp-vault-approle-unwrap-secret-id-and-login" {
-    name = "HashiCorp Vault - AppRole Unwrap Secret ID and Login"
-
-    action {
-        properties = {
-            Octopus.Action.Template.Id = "ActionTemplates-24"
-            Octopus.Action.Template.Version = "5"
-            Vault.AppRole.UnwrapSecretID.Login.ApiVersion = "v1"
-            Vault.AppRole.UnwrapSecretID.Login.AppRolePath = "/auth/approle"
-            Vault.AppRole.UnwrapSecretID.Login.Namespace = "#{hashicorp.vault.namespace}"
-            Vault.AppRole.UnwrapSecretID.Login.RoleID = "#{project.hashicorp.roleid}"
-            Vault.AppRole.UnwrapSecretID.Login.VaultAddress = "#{hashicorp.vault.url}"
-            Vault.AppRole.UnwrapSecretID.Login.WrappedToken = "#{project.hashicorp.WrappedToken}"
-            Vault.AppRole.UnwrapSecretID.Login.WrappedTokenCreationPath = "#{project.hashicorp.WrappedTokenCreationPath}"
-        }
-        worker_pool = "hosted-ubuntu"
-    }
-}
-
 step "run-a-script" {
     name = "Run a Script"
 
@@ -132,26 +152,6 @@ step "run-a-script" {
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
-        }
-        worker_pool = "hosted-ubuntu"
-    }
-}
-
-step "hashicorp-vault-key-value-v2-retrieve-secrets" {
-    name = "HashiCorp Vault - Key Value (v2) retrieve secrets"
-
-    action {
-        properties = {
-            Octopus.Action.Template.Id = "ActionTemplates-43"
-            Octopus.Action.Template.Version = "9"
-            Vault.Retrieve.KV.V2.Secrets.ApiVersion = "v1"
-            Vault.Retrieve.KV.V2.Secrets.AuthToken = "#{project.hashicorp.AppRoleAuthToken}"
-            Vault.Retrieve.KV.V2.Secrets.Namespace = "#{hashicorp.vault.namespace}"
-            Vault.Retrieve.KV.V2.Secrets.PrintVariableNames = "True"
-            Vault.Retrieve.KV.V2.Secrets.RecursiveSearch = "False"
-            Vault.Retrieve.KV.V2.Secrets.RetrievalMethod = "Get"
-            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "secret/webapp/config"
-            Vault.Retrieve.KV.V2.Secrets.VaultAddress = "#{hashicorp.vault.url}"
         }
         worker_pool = "hosted-ubuntu"
     }
