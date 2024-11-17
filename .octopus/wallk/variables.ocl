@@ -27,5 +27,5 @@ variable "tokentesting" {
 }
 
 variable "project.hashicorp.AppRoleAuthToken" {
-    value "notprintout#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
 }
