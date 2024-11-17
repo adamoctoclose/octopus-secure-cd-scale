@@ -14,8 +14,9 @@ step "deploy-kubernetes-secret" {
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend-secret.yaml"
-            Octopus.Action.KubernetesContainers.Namespace = "#{project.namesapce}"
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namespace}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
         worker_pool_variable = ""
@@ -38,7 +39,7 @@ step "deploy-kubernetes-yaml" {
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "demo-frontend/demo-frontend.yaml"
-            Octopus.Action.KubernetesContainers.Namespace = "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}"
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namespace}"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
@@ -70,7 +71,7 @@ step "print-application-url" {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptFileName = "scripts/get-application-urls.ps1"
-            Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namesapce}"
+            Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namespace}"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
     }
