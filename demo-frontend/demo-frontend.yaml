@@ -20,6 +20,11 @@ spec:
         ports:
         - containerPort: 5002 # Port exposed by the container (matches the Dockerfile)
         env:
+        - name: MY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: MY_SECRET # Refers to the key in the Kubernetes Secret
         - name: WELCOME_MESSAGE
           value: "Welcome to the Octopus Zero to Hero Webinar!" # Example environment variable
         - name: FOOTER_TEXT
