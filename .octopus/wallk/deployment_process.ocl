@@ -141,6 +141,7 @@ step "run-a-script" {
 
     action {
         action_type = "Octopus.Script"
+        is_disabled = true
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 $hello = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
@@ -170,7 +171,7 @@ step "hashicorp-vault-key-value-v2-retrieve-secrets" {
             Vault.Retrieve.KV.V2.Secrets.PrintVariableNames = "True"
             Vault.Retrieve.KV.V2.Secrets.RecursiveSearch = "False"
             Vault.Retrieve.KV.V2.Secrets.RetrievalMethod = "Get"
-            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "/admin/secret/webapp/config"
+            Vault.Retrieve.KV.V2.Secrets.SecretsPath = "secret/data/webapp/config"
             Vault.Retrieve.KV.V2.Secrets.VaultAddress = "#{hashicorp.vault.url}"
         }
         worker_pool = "hosted-ubuntu"
