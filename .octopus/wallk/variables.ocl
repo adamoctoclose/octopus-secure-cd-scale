@@ -21,3 +21,7 @@ variable "project.hashicorp.WrappedTokenCreationPath" {
 variable "project.namespace" {
     value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
 }
+
+variable "project.hashicorp.roleid.AppRoleAuthToken" {
+    value "#{Octopus.Action[HashiCorp Vault - AppRole Unwrap Secret ID and Login].Output.AppRoleAuthToken}" {}
+}
