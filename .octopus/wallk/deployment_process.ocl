@@ -141,6 +141,7 @@ step "run-a-script" {
 
     action {
         action_type = "Octopus.Script"
+        is_disabled = true
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 $hello = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
