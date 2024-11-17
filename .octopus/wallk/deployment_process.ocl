@@ -103,6 +103,7 @@ step "hashicorp-vault-approle-unwrap-secret-id" {
     name = "HashiCorp Vault - AppRole Unwrap Secret ID"
 
     action {
+        is_disabled = true
         properties = {
             Octopus.Action.Template.Id = "ActionTemplates-41"
             Octopus.Action.Template.Version = "4"
