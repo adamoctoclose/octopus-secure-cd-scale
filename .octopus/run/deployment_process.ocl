@@ -61,14 +61,11 @@ step "run-a-script" {
 
     action "convert-sectet-base64" {
         action_type = "Octopus.Script"
-        is_disabled = true
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
-                $inputVariable = "#{MyInputVariable}"  # Replace 'MyInputVariable' with the name of your Octopus variable
+                $inputVariable = $OctopusParameters["data:token"]
                 
-                $encodedVariable = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($inputVariable))
-                
-                Set-OctopusVariable -name "Password" -value $encodedVariable -sensitive
+                write-host $inputVariable 
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
