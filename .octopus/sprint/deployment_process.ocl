@@ -6,6 +6,7 @@ step "deploy-kubernetes-secret" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "demo-frontend/demo-frontend-secret.yaml"
             Octopus.Action.GitRepository.Source = "Project"
