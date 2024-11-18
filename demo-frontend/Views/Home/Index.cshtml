@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home";
     // Fetch the secret from the environment variable
-    var injectedPassword = Environment.GetEnvironmentVariable("PASSWORD") ?? "Password not found";
+    var injectedPassword = Environment.GetEnvironmentVariable("TOKEN") ?? "Token not found";
 }
 
 <!-- Page-specific content -->
