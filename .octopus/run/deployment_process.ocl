@@ -56,6 +56,27 @@ step "hashicorp-vault-key-value-v2-retrieve-secrets" {
     }
 }
 
+step "run-a-script" {
+    name = "convert Secret Base64"
+
+    action "convert-sectet-base64" {
+        action_type = "Octopus.Script"
+        is_disabled = true
+        properties = {
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $inputVariable = "#{MyInputVariable}"  # Replace 'MyInputVariable' with the name of your Octopus variable
+                
+                $encodedVariable = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($inputVariable))
+                
+                Set-OctopusVariable -name "Password" -value $encodedVariable -sensitive
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
+
 step "deploy-kubernetes-secret" {
     name = "Deploy Kubernetes Secret"
     properties = {
@@ -132,27 +153,5 @@ step "print-application-url" {
             Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namespace}"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
-    }
-}
-
-step "run-a-script" {
-    name = "Run a Script"
-
-    action {
-        action_type = "Octopus.Script"
-        is_disabled = true
-        properties = {
-            Octopus.Action.Script.ScriptBody = <<-EOT
-                $hello = $OctopusParameters["project.hashicorp.AppRoleAuthToken"]
-                
-                write-highlight $hello
-                
-                $hello > "$($PWD)/foo.txt"
-                New-OctopusArtifact "$($PWD)/foo.txt"
-                EOT
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
-        }
-        worker_pool = "hosted-ubuntu"
     }
 }
