@@ -23,5 +23,5 @@ variable "project.hashicorp.AppRoleAuthToken" {
 }
 
 variable "data:token" {
-    value "#{Octopus.Action[HashiCorp Vault - Key Value (v2) retrieve secrets].Output.secret.webapp.#{Octopus.Environment.Name | ToLower}.application.token}" {}
+    value "#{Octopus.Action[HashiCorp Vault - Key Value (v2) retrieve secrets].Output.secret.webapp.development.application.token}" {}
 }
