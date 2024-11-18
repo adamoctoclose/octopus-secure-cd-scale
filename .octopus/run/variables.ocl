@@ -27,5 +27,5 @@ variable "project.hashicorp.AppRoleAuthToken" {
 }
 
 variable "data:password" {
-    value "#{Octopus.Action[HashiCorp Vault - Key Value (v2) retrieve secrets].Output.secret.webapp.config.password}" {}
+    value "#{Octopus.Action[HashiCorp Vault - Key Value (v2) retrieve secrets].Output.secret.webapp.development.application.password}" {}
 }
