@@ -13,7 +13,3 @@ variable "spec:template:spec:containers:0:image" {
 variable "project.namespace" {
     value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
 }
-
-variable "data:token" {
-    value "#{project.secret}" {}
-}
