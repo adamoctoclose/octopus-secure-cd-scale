@@ -1,0 +1,19 @@
+variable "spec:template:spec:containers:0:env:1:value" {
+    value "#{octopus.Environment.Name}" {}
+}
+
+variable "project.frontend.version" {
+    value "#{Octopus.Action.Package[octopus-secure-cd-scale_demo-frontend].PackageVersion}" {}
+}
+
+variable "spec:template:spec:containers:0:image" {
+    value "ghcr.io/adamoctoclose/octopus-secure-cd-scale/demo-frontend:#{project.frontend.version}" {}
+}
+
+variable "project.namespace" {
+    value "#{Octopus.Project.Name | ToLower }-#{Octopus.Environment.Name | ToLower}" {}
+}
+
+variable "data:token" {
+    value "#{project.secret}" {}
+}
