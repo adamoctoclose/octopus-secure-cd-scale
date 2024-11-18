@@ -26,7 +26,7 @@ step "deploy-kubernetes-secret" {
 step "deploy-kubernetes-yaml" {
     name = "Deploy Kubernetes Application"
     properties = {
-        Octopus.Action.TargetRoles = "demo-frontend"
+        Octopus.Action.TargetRoles = "demo-frontend-azure"
     }
 
     action {
