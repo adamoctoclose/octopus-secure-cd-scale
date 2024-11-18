@@ -24,7 +24,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: demo-frontend-secret # Reference to the Secret object
-              key: 
+              key: token
 
 ---
 apiVersion: v1
