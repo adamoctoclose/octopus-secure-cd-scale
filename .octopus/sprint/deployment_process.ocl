@@ -1,7 +1,7 @@
 step "deploy-kubernetes-secret" {
     name = "Deploy Kubernetes Secret"
     properties = {
-        Octopus.Action.TargetRoles = "demo-frontend"
+        Octopus.Action.TargetRoles = "demo-frontend-azure"
     }
 
     action {
@@ -67,6 +67,7 @@ step "print-application-url" {
 
     action {
         action_type = "Octopus.Script"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.RunOnServer = "false"
