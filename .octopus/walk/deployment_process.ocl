@@ -59,6 +59,25 @@ step "deploy-kubernetes-yaml" {
     }
 }
 
+step "application-rollout" {
+    name = "Application Rollout "
+    properties = {
+        Octopus.Action.TargetRoles = "demo-frontend"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesRunScript"
+        properties = {
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namespace}"
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "kubectl rollout restart deployment demo-frontend-deployment"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
+
 step "print-application-url" {
     name = "Print Application URL"
     properties = {
@@ -74,23 +93,5 @@ step "print-application-url" {
             Octopus.Action.Script.ScriptParameters = "-Namespace #{project.namespace}"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
-    }
-}
-
-step "application-rollout" {
-    name = "Application Rollout "
-    properties = {
-        Octopus.Action.TargetRoles = "demo-frontend"
-    }
-
-    action {
-        action_type = "Octopus.KubernetesRunScript"
-        properties = {
-            Octopus.Action.KubernetesContainers.Namespace = "#{project.namespace}"
-            Octopus.Action.Script.ScriptBody = "kubectl rollout restart deployment demo-frontend-deployment"
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
-        }
-        worker_pool_variable = ""
     }
 }
