@@ -76,3 +76,21 @@ step "print-application-url" {
         }
     }
 }
+
+step "application-rollout" {
+    name = "Application Rollout "
+    properties = {
+        Octopus.Action.TargetRoles = "demo-frontend"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesRunScript"
+        properties = {
+            Octopus.Action.KubernetesContainers.Namespace = "#{project.namespace}"
+            Octopus.Action.Script.ScriptBody = "kubectl rollout restart deployment demo-frontend-deployment"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
